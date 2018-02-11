@@ -11,7 +11,9 @@ final class CounterRepository
 
     public function __construct($bbdd)
     {
-        $this->actualCount = fgets(file($bbdd));
+        $file = fopen($bbdd, "r");
+        $this->actualCount = fgets($file);
+        fclose($file);
         $this->file = $bbdd;
     }
 

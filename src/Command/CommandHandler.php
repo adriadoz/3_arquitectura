@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace MPWAR5\Command;
 
-final class CommandHandler
+class CommandHandler
 {
     private $counterRepository;
     private $syncroHandler;
@@ -13,13 +13,7 @@ final class CommandHandler
         $this->syncroHandler = $syncroHandler;
     }
 
-    public function handleIncrement(Counter $counter):void
-    {
-        $counter->incrementCounter();
-        $this->persistData($counter);
-    }
-
-    private function persistData(Counter $counter):void
+    protected function persistData(Counter $counter):void
     {
         $this->counterRepository->setCount($counter->getCount());
         $this->syncroHandler->__invoke();

@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 require_once 'vendor/autoload.php';
 
-use MPWAR5\Command\CommandHandler;
+use MPWAR5\Command\IncrementCommandHandler;
+use MPWAR5\Command\DecrementCommandHandler;
+use MPWAR5\Command\ResetCommandHandler;
 use MPWAR5\Command\CounterRepository;
 use MPWAR5\Command\Counter;
 use MPWAR5\Command\SyncroHandler;
@@ -17,8 +19,13 @@ $counterQueryRepo = new SyncroHandler($commandBBDD, $queryBBDD);
 
 $counter = new Counter($counterCommandRepo->getCount());
 
-$commandHandler= new CommandHandler($counterCommandRepo, $counterQueryRepo);
-$commandHandler->handleIncrement($counter);
+$incrementCommandHandler= new IncrementCommandHandler($counterCommandRepo, $counterQueryRepo);
+$decrementCommandHandler= new DecrementCommandHandler($counterCommandRepo, $counterQueryRepo);
+$resetCommandHandler= new ResetCommandHandler($counterCommandRepo, $counterQueryRepo);
+
+//$incrementCommandHandler->handleIncrement($counter);
+//$decrementCommandHandler->handleDecrement($counter);
+$resetCommandHandler->handleReset($counter);
 
 $query= new QueryHandler($queryBBDD);
 echo $query->getCounter();

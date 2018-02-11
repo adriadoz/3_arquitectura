@@ -1,0 +1,24 @@
+{
+  "name": "3_arquitectura-g5",
+  "description": "CQRS example",
+  "type": "CQRS",
+  "license": "propietary",
+  "require": {
+    "php": "^7.1"
+  },
+  "require-dev": {
+    "symfony/var-dumper": "^4.0",
+    "phpunit/phpunit": "^6.5"
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "MPWAR5\\Command\\": "src/Command/",
+      "MPWAR5\\Query\\": "src/Query/"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true
+  }
+}

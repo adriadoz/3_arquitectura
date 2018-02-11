@@ -26,20 +26,16 @@ $resetCommandHandler= new ResetCommandHandler($counterCommandRepo, $counterQuery
 if(isset($_POST['action'])) {
     switch ($_POST['action']) {
         case 'increment' :
-            echo '+1';
             $incrementCommandHandler->handleIncrement($counter);
             break;
         case 'decrement' :
-            echo '-1';
             $decrementCommandHandler->handleDecrement($counter);
             break;
         case 'reset' :
-            echo 'reset';
             $resetCommandHandler->handleReset($counter);
             break;
     }
 }
-
 
 $query= new QueryHandler($queryBBDD);
 

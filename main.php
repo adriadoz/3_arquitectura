@@ -23,9 +23,9 @@ $incrementCommandHandler= new IncrementCommandHandler($counterCommandRepo, $coun
 $decrementCommandHandler= new DecrementCommandHandler($counterCommandRepo, $counterQueryRepo);
 $resetCommandHandler= new ResetCommandHandler($counterCommandRepo, $counterQueryRepo);
 
-//$incrementCommandHandler->handleIncrement($counter);
+$incrementCommandHandler->handleIncrement($counter);
 //$decrementCommandHandler->handleDecrement($counter);
-$resetCommandHandler->handleReset($counter);
+//$resetCommandHandler->handleReset($counter);
 
 $query= new QueryHandler($queryBBDD);
 echo $query->getCounter();

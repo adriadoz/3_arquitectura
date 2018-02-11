@@ -40,8 +40,6 @@ if(isset($_POST['action'])) {
     }
 }
 
-$incrementCommandHandler->handleIncrement($counter);
-
 
 $query= new QueryHandler($queryBBDD);
 

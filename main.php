@@ -23,9 +23,40 @@ $incrementCommandHandler= new IncrementCommandHandler($counterCommandRepo, $coun
 $decrementCommandHandler= new DecrementCommandHandler($counterCommandRepo, $counterQueryRepo);
 $resetCommandHandler= new ResetCommandHandler($counterCommandRepo, $counterQueryRepo);
 
-//$incrementCommandHandler->handleIncrement($counter);
-//$decrementCommandHandler->handleDecrement($counter);
-$resetCommandHandler->handleReset($counter);
+if(isset($_POST['action'])) {
+    switch ($_POST['action']) {
+        case 'increment' :
+            echo '+1';
+            $incrementCommandHandler->handleIncrement($counter);
+            break;
+        case 'decrement' :
+            echo '-1';
+            $decrementCommandHandler->handleDecrement($counter);
+            break;
+        case 'reset' :
+            echo 'reset';
+            $resetCommandHandler->handleReset($counter);
+            break;
+    }
+}
+
+$incrementCommandHandler->handleIncrement($counter);
+
 
 $query= new QueryHandler($queryBBDD);
-echo $query->getCounter();
+
+?>
+<html>
+    <head>
+        <title>Counter CQRS</title>
+    </head>
+    <body>
+        <h1>Count: <?php echo $query->getCounter(); ?></h1>
+        <form action="main.php" method="post">
+            <button type="submit" name="action" value="increment">+1</button>
+            <button type="submit" name="action" value="decrement">-1</button>
+            <button type="submit" name="action" value="reset">Reset</button>
+        </form>
+    </body>
+</html>
+

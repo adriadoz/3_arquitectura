@@ -13,14 +13,15 @@ final class CommandHandler
         $this->syncroHandler = $syncroHandler;
     }
 
-    public function handleIncrement():void
+    public function handleIncrement(Counter $counter):void
     {
-        $this->counterRepository->incrementCounter();
-        $this->persistData();
+        $counter->incrementCounter();
+        $this->persistData($counter);
     }
-    public function persistData():void
+
+    private function persistData(Counter $counter):void
     {
-        $this->counterRepository->setCount();
+        $this->counterRepository->setCount($counter->getCount());
         $this->syncroHandler->__invoke();
     }
 }

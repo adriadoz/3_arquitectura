@@ -5,6 +5,7 @@ require_once 'vendor/autoload.php';
 
 use MPWAR5\Command\CommandHandler;
 use MPWAR5\Command\CounterRepository;
+use MPWAR5\Command\Counter;
 use MPWAR5\Command\SyncroHandler;
 use MPWAR5\Query\QueryHandler;
 
@@ -14,8 +15,10 @@ $queryBBDD = "src/Repository/queryBBDD.txt";
 $counterCommandRepo = new CounterRepository($commandBBDD);
 $counterQueryRepo = new SyncroHandler($commandBBDD, $queryBBDD);
 
-$command= new CommandHandler($counterCommandRepo, $counterQueryRepo);
-$command->handleIncrement();
+$counter = new Counter($counterCommandRepo->getCount());
+
+$commandHandler= new CommandHandler($counterCommandRepo, $counterQueryRepo);
+$commandHandler->handleIncrement($counter);
 
 $query= new QueryHandler($queryBBDD);
 echo $query->getCounter();

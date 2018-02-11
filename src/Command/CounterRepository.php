@@ -2,33 +2,25 @@
 declare(strict_types=1);
 namespace MPWAR5\Command;
 
-final class CounterRepository
+final class CounterRepository implements ICounterRepository
 {
-
-    protected const MIN_INCREMENT = 1;
-    private $actualCount = 0;
     private $file = "";
 
     public function __construct($bbdd)
     {
-        $file = fopen($bbdd, "r");
-        $this->actualCount = fgets($file);
-        fclose($file);
         $this->file = $bbdd;
     }
-
-    public function incrementCounter():void
+    
+    public function setCount($count):void
     {
-        $this->actualCount = $this->actualCount + $this::MIN_INCREMENT;
+        file_put_contents($this->file, $count);
     }
-
-    public function getCount():int
+    
+    public function getCount()
     {
-        return $this->actualCount;
-    }
-
-    public function setCount():void
-    {
-        file_put_contents($this->file, $this->actualCount);
+        $file = fopen($this->file, "r");
+        $count = intval(fgets($file));
+        fclose($file);
+        return $count;
     }
 }

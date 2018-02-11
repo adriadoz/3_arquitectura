@@ -5,7 +5,14 @@ require_once 'vendor/autoload.php';
 
 use MPWAR5\Command\CommandHandler;
 use MPWAR5\Command\CounterRepository;
+use MPWAR5\Command\SyncroHandler;
 
-$counterRepo = new CounterRepository("src/Repository/commandBBDD.txt");
-$command= new CommandHandler($counterRepo);
+$commandBBDD = "src/Repository/commandBBDD.txt";
+$queryBBDD = "src/Repository/queryBBDD.txt";
+
+$counterCommandRepo = new CounterRepository($commandBBDD);
+$counterQueryRepo = new SyncroHandler($commandBBDD, $queryBBDD);
+
+$command= new CommandHandler($counterCommandRepo, $counterQueryRepo);
 $command->handleIncrement();
+
